@@ -1,7 +1,7 @@
 declare module '*.png';
 declare module '*.svg';
 declare module 'react-native-user-avatar';
-
+declare module '@voximplant/react-native-foreground-service';
 declare module '@env' {
   export const ENV: 'dev' | 'prod';
   export const SENTRY_DSN: string;
