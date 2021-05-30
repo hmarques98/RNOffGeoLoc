@@ -9,6 +9,8 @@ import { CommonStackParamList } from 'src/screens';
 import { StackNavigationProp } from '@react-navigation/stack';
 import useLocation from 'hooks/useLocation';
 import { PADDING } from 'styles/spacing';
+import { useDispatch } from 'react-redux';
+import { callUsers } from '@store/slices/location';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   CommonStackParamList,
@@ -23,6 +25,8 @@ const HomeScreen = () => {
     getLocationUpdates();
   }, [getLocationUpdates]);
 
+  const dispatch = useDispatch();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="light-content" />
@@ -36,12 +40,21 @@ const HomeScreen = () => {
           </>
         )}
 
-        <Button onPress={getLocationUpdates}>
-          <Typography>Location in live</Typography>
-        </Button>
         <Button onPress={toggleObserving}>
           <Typography>{isObserving ? 'Active' : 'Not active'}</Typography>
         </Button>
+        <Button
+          onPress={() => {
+            dispatch(callUsers('path'));
+          }}>
+          <Typography>Prepare</Typography>
+        </Button>
+        {/* <Button
+          onPress={() => {
+            dispatch(fetchApi());
+          }}>
+          <Typography>Thunk</Typography>
+        </Button> */}
       </Box>
     </SafeAreaView>
   );

@@ -85,7 +85,7 @@ export default CharacterDetailScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: myTheme.colors.black,
+    backgroundColor: myTheme.colors.white,
   },
 });
 

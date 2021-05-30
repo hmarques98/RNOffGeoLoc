@@ -41,17 +41,15 @@ const queryClient = new QueryClient();
 
 const App = () => {
   useNavigationMounting();
-  useOneSignal();
-  useStartupTime();
+  // useOneSignal();
+  // useStartupTime();
 
-  useNetworkError();
-
-  useAppState({
-    onChange: (newAppState) =>
-      console.warn('App state changed to ', newAppState),
-    onForeground: () => console.warn('App went to Foreground'),
-    onBackground: () => console.warn('App went to background'),
-  });
+  // useAppState({
+  //   onChange: (newAppState) =>
+  //     console.warn('App state changed to ', newAppState),
+  //   onForeground: () => console.warn('App went to Foreground'),
+  //   onBackground: () => console.warn('App went to background'),
+  // });
 
   return (
     <Provider store={store}>
