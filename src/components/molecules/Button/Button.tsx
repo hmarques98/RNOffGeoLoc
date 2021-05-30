@@ -69,7 +69,6 @@ const variantStyle = (theme: DefaultTheme, disabled: boolean) => {
 const Button = styled.TouchableOpacity<ButtonProps>`
   ${compose(
     color,
-    layout,
     space,
     borders,
     flex,
@@ -78,15 +77,8 @@ const Button = styled.TouchableOpacity<ButtonProps>`
     buttonStyle,
     padding,
   )}
-  /* background-color:${({ theme, disabled }) =>
-    disabled ? theme.colors.black : theme.colors.primary} */
+
   ${({ theme, disabled }) => variantStyle(theme, !!disabled)}
 `;
-Button.defaultProps = {
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  height: 48,
-};
 
 export default Button;
