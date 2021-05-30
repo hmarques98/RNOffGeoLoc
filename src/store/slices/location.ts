@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { log } from '@utils/console';
 
 const locationSlice = createSlice({
   name: 'location',
   initialState: {
-    text: '',
+    timer: 1000,
+    isServiceActive: false,
   },
   reducers: {
     callUsers: {
       reducer: (state, action) => {
-        state.text = 'foi';
         log(action, 'action');
         log(action.meta, 'meta');
       },
@@ -34,12 +34,19 @@ const locationSlice = createSlice({
               rollback: { type: 'location/failCall' },
             },
           },
+          error: {},
         };
       },
+    },
+    changeTimer(state, action) {
+      state.timer = action.payload;
+    },
+    toggleService(state) {
+      state.isServiceActive = !state.isServiceActive;
     },
   },
 });
 
-export const { callUsers } = locationSlice.actions;
+export const { callUsers, changeTimer, toggleService } = locationSlice.actions;
 const locationReducer = locationSlice.reducer;
 export default locationReducer;

@@ -12,6 +12,8 @@ import {
   isBatteryCharging,
 } from 'react-native-device-info';
 import { log } from '@utils/console';
+import { locationStateSelector } from '@store/slices';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function useLocation() {
   const [location, setLocation] = useState<Geolocation.GeoPosition>(
@@ -19,23 +21,16 @@ export default function useLocation() {
   );
   const displayName = getApplicationName();
   const watchId = useRef<number | null>(null);
-  const [isObserving, setIsObserving] = useState(false);
-  const [timeOutLocation, setTimeOutLocation] = useState(5000);
 
-  const handleTimeOutLocation = (timeOutMs: NonNullable<number>) => {
-    setTimeOutLocation(timeOutMs);
-  };
+  const { timer, isServiceActive } = useSelector(locationStateSelector);
 
   useEffect(() => {
-    if (!isObserving) {
+    if (!isServiceActive) {
       Geolocation.clearWatch(watchId.current!);
       // Geolocation.stopObserving();
     }
-  }, [isObserving]);
+  }, [isServiceActive]);
 
-  const toggleObserving = () => {
-    setIsObserving((preview) => !preview);
-  };
   const hasPermissionIOS = useCallback(async () => {
     const openSetting = () => {
       Linking.openSettings().catch(() => {
@@ -129,12 +124,12 @@ export default function useLocation() {
           ios: 'best',
         },
         enableHighAccuracy: true,
-        timeout: timeOutLocation,
-        maximumAge: timeOutLocation * 2,
+        timeout: timer,
+        maximumAge: timer * 2,
         forceRequestLocation: true,
       },
     );
-  }, [hasLocationPermission, timeOutLocation]);
+  }, [hasLocationPermission, timer]);
 
   const getLocationUpdates = useCallback(async () => {
     const hasPermission = await hasLocationPermission();
@@ -143,11 +138,10 @@ export default function useLocation() {
       return;
     }
 
-    if (isObserving) {
+    if (isServiceActive) {
       watchId.current = Geolocation.watchPosition(
         (position) => {
           setLocation(position);
-          log(timeOutLocation);
         },
         (error) => {
           setLocation({} as Geolocation.GeoPosition);
@@ -160,19 +154,18 @@ export default function useLocation() {
           },
           enableHighAccuracy: true,
           distanceFilter: 0,
-          interval: timeOutLocation,
-          fastestInterval: timeOutLocation / 2,
+          interval: timer,
+          fastestInterval: timer / 2,
           forceRequestLocation: true,
           showsBackgroundLocationIndicator: true,
         },
       );
     }
-  }, [hasLocationPermission, isObserving, timeOutLocation]);
+  }, [hasLocationPermission, isServiceActive, timer]);
 
   const removeLocationUpdates = useCallback(() => {
     Geolocation.clearWatch(watchId.current!);
     watchId.current = null;
-    setIsObserving(false);
   }, []);
 
   useEffect(() => {
@@ -188,9 +181,5 @@ export default function useLocation() {
   return {
     location,
     getLocationUpdates,
-    toggleObserving,
-    isObserving,
-    handleTimeOutLocation,
-    timeOutLocation,
   };
 }

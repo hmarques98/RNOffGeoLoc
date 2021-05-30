@@ -8,20 +8,25 @@ import { StackScreenProps } from '@react-navigation/stack';
 import useLocation from 'hooks/useLocation';
 import { PADDING } from 'styles/spacing';
 import { useDispatch, useSelector } from 'react-redux';
-import { callUsers } from '@store/slices/location';
-import { offlineStateSelector } from '@store/slices';
+import { callUsers, changeTimer, toggleService } from '@store/slices/location';
+import { locationStateSelector, offlineStateSelector } from '@store/slices';
 import useHeader from 'hooks/useHeader';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Divider } from 'components/molecules/Divider';
 import { Switch } from 'react-native-gesture-handler';
 import { PRIMARY } from 'styles/colors';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { log } from '@utils/console';
 type Props = StackScreenProps<CommonStackParamList, 'Home'>;
+
+const milliseconds = 1000;
 const HomeScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
 
-  const [timer, setTimer] = useState(10);
-  const [isServiceActive, setIsServiceActive] = useState(false);
+  const { timer, isServiceActive } = useSelector(locationStateSelector);
+  const dispatch = useDispatch();
+  const { isConnected } = useNetInfo();
 
   return (
     <Box flex={1} paddingTop={PADDING} bg={'white'}>
@@ -42,33 +47,36 @@ const HomeScreen = ({ navigation, route }: Props) => {
         </Box>
         <Box ml={3}>
           <Typography>My GPS - Tracking</Typography>
-          <Typography color={isServiceActive ? 'green' : 'grayLight'}>
-            {isServiceActive ? 'Online' : 'Offline'}
+          <Typography color={isConnected ? 'green' : 'grayLight'}>
+            {isConnected ? 'Online' : 'Offline'}
           </Typography>
         </Box>
       </Box>
 
       <Divider my={3} />
 
-      <Box flexDirection="row" justifyContent="space-between" mb={4} px={3}>
+      <Box flexDirection="row" justifyContent="space-between" mb={3} px={3}>
         <Box>
           <Typography>Status do serviço</Typography>
           <Typography fontSize={1} color="grayLight">
-            Serviço ativo
+            Serviço {isServiceActive ? 'ativo' : 'desativado'}
           </Typography>
         </Box>
-        <Switch value={isServiceActive} onValueChange={setIsServiceActive} />
+        <Switch
+          value={isServiceActive}
+          onValueChange={() => dispatch(toggleService())}
+        />
       </Box>
       <Box px={3}>
         <Typography>Intervalo de comunicação</Typography>
-        <Box flexDirection="row" justifyContent="space-between">
+        <Box flexDirection="row" justifyContent="space-between" mt={3}>
           {[10, 5, 3, 1].map((value) => {
             return (
               <CardTimer
                 key={value}
-                active={value === timer}
+                active={value === timer / milliseconds}
                 value={value}
-                onPress={() => setTimer(value)}
+                onPress={() => dispatch(changeTimer(value * milliseconds))}
               />
             );
           })}
