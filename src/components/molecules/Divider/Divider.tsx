@@ -24,7 +24,7 @@ interface DividerProps
 const Divider = styled.View<DividerProps>`
   ${compose(color, layout, space, borders, flexbox)}
   background-color: ${myTheme.colors.grayLight};
-  height: 1.3px;
+  height: 0.6px;
 `;
 
 export default Divider;

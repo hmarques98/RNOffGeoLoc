@@ -16,20 +16,20 @@ type Props = StackScreenProps<CommonStackParamList, 'Status'>;
 const StatusScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
   return (
-    <Box flex={1} paddingTop={PADDING} bg={WHITE} px={3}>
-      <Divider margin={0} />
-
+    <Box flex={1} mt={3} bg={'white'} px={3}>
+      <Divider my={3} />
       <Box flexDirection="row" justifyContent="space-between">
         <Box>
-          <Typography color={BLACK}>Pacote ID: XXXXXX</Typography>
-          <Typography color={BLACK} fontSize={1} mt={2}>
+          <Typography color={'black'}>Pacote ID: XXXXXX</Typography>
+          <Typography color={'black'} fontSize={1} mt={2}>
             Pendente de sicronizar
           </Typography>
         </Box>
-        <Typography color={BLACK} fontSize={1}>
+        <Typography color={'black'} fontSize={1}>
           12:30
         </Typography>
       </Box>
+      <Divider my={3} />
     </Box>
   );
 };

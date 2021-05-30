@@ -24,7 +24,7 @@ interface BoxProps
   extends LayoutProps,
     ColorProps<typeof myTheme>,
     SpaceProps<typeof myTheme>,
-    BordersProps,
+    BordersProps<typeof myTheme>,
     FlexProps,
     PositionProps,
     FlexboxProps {

@@ -20,5 +20,16 @@ declare module 'styled-components' {
       FONT_BOLD: string;
     };
     borderWidths: number[];
+    bordersColors: {
+      primary: string;
+      secondary: string;
+      white: string;
+      black: string;
+      green: string;
+      grayLight: string;
+      success: string;
+      greenOpacity: string;
+    };
+    radii: number[];
   }
 }

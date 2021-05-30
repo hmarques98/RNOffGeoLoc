@@ -51,6 +51,5 @@ const Typography = styled(Text)<TypographyProps>`
 Typography.defaultProps = {
   color: 'primary',
   fontSize: 18,
-  fontWeight: '600',
 };
 export default Typography;

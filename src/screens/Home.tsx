@@ -26,7 +26,11 @@ const HomeScreen = ({ navigation, route }: Props) => {
   return (
     <Box flex={1} paddingTop={PADDING} bg={'white'}>
       <Box flexDirection="row" px={3}>
-        <Box borderWidth={3} borderColor={''} borderRadius={100} padding={2}>
+        <Box
+          borderWidth={1}
+          borderColor={'primary'}
+          borderRadius={4}
+          padding={2}>
           <MaterialCommunityIcons
             name="cards-diamond-outline"
             size={40}
@@ -94,7 +98,7 @@ const CardTimer = ({
       borderWidth={1}
       borderColor={active ? 'success' : 'grayLight'}
       bg={active ? 'greenOpacity' : 'white'}
-      borderRadius={3}
+      borderRadius={2}
       padding={3}>
       <Typography color={active ? 'black' : 'grayLight'}>{value}s</Typography>
     </Button>
