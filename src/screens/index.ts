@@ -1,16 +1,12 @@
 import HomeScreen from 'screens/Home';
-import CustomWebView from 'screens/CharacterDetail';
-import { StackNavigationOptions } from '@react-navigation/stack';
-import { IPeople } from 'src/interfaces/IPeople';
+import StatusScreen from 'screens/StatusScreen';
 
 export type CommonStackParamList = {
-  CharacterDetail: { character: IPeople };
   Home: undefined;
+  Status: undefined;
 };
 
-const options: StackNavigationOptions = { gestureEnabled: false };
-
 export const commonScreens = {
-  Home: { component: HomeScreen, options },
-  CharacterDetail: { component: CustomWebView },
+  Home: { component: HomeScreen },
+  Status: { component: StatusScreen },
 };

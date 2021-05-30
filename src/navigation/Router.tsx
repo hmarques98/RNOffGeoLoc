@@ -1,8 +1,11 @@
 import React from 'react';
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { navigationRef } from 'navigation/RootNavigation';
 
 import { commonScreens, CommonStackParamList } from 'screens';
@@ -10,12 +13,10 @@ import { ThemeProvider } from 'styled-components';
 import { myTheme } from '../../theme';
 import RNBootSplash from 'react-native-bootsplash';
 
-const screenOptions = {
-  cardStyle: { backgroundColor: myTheme.colors.white },
-  headerShown: false,
-};
+const screenOptions: StackNavigationOptions = {};
 
 type ParamList = CommonStackParamList;
+
 export const Stack = createStackNavigator<ParamList>();
 
 const linking: LinkingOptions = {
