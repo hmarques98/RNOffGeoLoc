@@ -15,6 +15,8 @@ import useAppState from 'react-native-appstate-hook';
 import { Provider } from 'react-redux';
 import store from './src/store';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { StatusBar } from 'react-native';
+import CustomStatusBar from 'components/StatusBar';
 
 enableScreens();
 FileLogger.configure({

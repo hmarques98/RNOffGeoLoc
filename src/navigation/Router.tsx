@@ -12,8 +12,14 @@ import { commonScreens, CommonStackParamList } from 'screens';
 import { ThemeProvider } from 'styled-components';
 import { myTheme } from '../../theme';
 import RNBootSplash from 'react-native-bootsplash';
+import CustomStatusBar from 'components/StatusBar';
+import { StatusBar, StatusBarIOS } from 'react-native';
 
-const screenOptions: StackNavigationOptions = {};
+const screenOptions: StackNavigationOptions = {
+  safeAreaInsets: {
+    top: 20,
+  },
+};
 
 type ParamList = CommonStackParamList;
 
@@ -38,6 +44,10 @@ export default function Router() {
           }, 3000);
         }}>
         <SafeAreaProvider>
+          <CustomStatusBar
+            barStyle="light-content"
+            backgroundColor={myTheme.colors.secondary}
+          />
           <Stack.Navigator screenOptions={screenOptions}>
             {Object.entries({
               // Use the screens normally

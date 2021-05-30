@@ -27,7 +27,7 @@ export default function useHeader(screen: ScreeName) {
 
           headerLeft: () => {
             return (
-              <Box px={3}>
+              <Box px={3} flex={1}>
                 <Typography color={GRAY_LIGHT}>Olá, bem-vindo</Typography>
               </Box>
             );
@@ -35,6 +35,7 @@ export default function useHeader(screen: ScreeName) {
           headerRight: () => {
             return (
               <Button
+                flex={1}
                 px={3}
                 onPress={() =>
                   navigation.push<keyof CommonStackParamList>('Status')
@@ -51,11 +52,10 @@ export default function useHeader(screen: ScreeName) {
           headerTitleStyle: {
             color: GRAY_LIGHT,
           },
-
+          // headerStatusBarHeight: 100,
           headerStyle: {
             backgroundColor: myTheme.colors.primary,
           },
-
           headerLeft: () => {
             return (
               <Button px={3} onPress={navigation.goBack}>

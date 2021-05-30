@@ -8,25 +8,17 @@ import { Typography } from 'components/molecules/Typography';
 import { StackScreenProps } from '@react-navigation/stack';
 import { CommonStackParamList } from 'src/screens';
 import useHeader from 'hooks/useHeader';
+import { WHITE } from 'styles/colors';
 
 type Props = StackScreenProps<CommonStackParamList, 'Status'>;
 
 const StatusScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="light-content" />
-      <Box flex={1} alignItems="center" paddingTop={PADDING}>
-        <Typography>status</Typography>
-      </Box>
-    </SafeAreaView>
+    <Box flex={1} alignItems="center" paddingTop={PADDING} bg={WHITE}>
+      <Typography>status</Typography>
+    </Box>
   );
 };
 
 export default StatusScreen;
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: myTheme.colors.white,
-  },
-});
