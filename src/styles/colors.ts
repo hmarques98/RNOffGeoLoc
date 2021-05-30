@@ -4,7 +4,7 @@ export const SECONDARY = '#030065';
 export const WHITE = '#F9F7FE';
 export const BLACK = '#1B1F23';
 export const GREEN = '#16BD04';
-export const GREEN_OPACITY = '#16BD04';
+export const GREEN_OPACITY = 'rgba(22,189,4, 0.1)';
 
 // ACTIONS
 export const SUCCESS = '#16BD04';

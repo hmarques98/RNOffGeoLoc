@@ -8,15 +8,13 @@ import { FileLogger } from 'react-native-file-logger';
 import { SENTRY_DSN, ENV, ONESIGNAL_ANDROID_KEY } from '@env';
 import * as Sentry from '@sentry/react-native';
 import codePush, { CodePushOptions } from 'react-native-code-push';
-import useNetworkError from 'hooks/useNetworkError';
-import useStartupTime from 'hooks/useStartupTime';
-import useOneSignal from 'hooks/useOneSignal';
-import useAppState from 'react-native-appstate-hook';
+
 import { Provider } from 'react-redux';
 import store from './src/store';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { StatusBar } from 'react-native';
-import CustomStatusBar from 'components/StatusBar';
+
+import { ThemeProvider } from 'styled-components';
+import { myTheme } from 'theme';
 
 enableScreens();
 FileLogger.configure({
@@ -56,7 +54,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <Router />
+        <ThemeProvider theme={myTheme}>
+          <Router />
+        </ThemeProvider>
       </QueryClientProvider>
     </Provider>
   );

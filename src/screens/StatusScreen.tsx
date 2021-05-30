@@ -8,15 +8,28 @@ import { Typography } from 'components/molecules/Typography';
 import { StackScreenProps } from '@react-navigation/stack';
 import { CommonStackParamList } from 'src/screens';
 import useHeader from 'hooks/useHeader';
-import { WHITE } from 'styles/colors';
+import { BLACK, WHITE } from 'styles/colors';
+import { Divider } from 'components/molecules/Divider';
 
 type Props = StackScreenProps<CommonStackParamList, 'Status'>;
 
 const StatusScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
   return (
-    <Box flex={1} alignItems="center" paddingTop={PADDING} bg={WHITE}>
-      <Typography>status</Typography>
+    <Box flex={1} paddingTop={PADDING} bg={WHITE} px={3}>
+      <Divider margin={0} />
+
+      <Box flexDirection="row" justifyContent="space-between">
+        <Box>
+          <Typography color={BLACK}>Pacote ID: XXXXXX</Typography>
+          <Typography color={BLACK} fontSize={1} mt={2}>
+            Pendente de sicronizar
+          </Typography>
+        </Box>
+        <Typography color={BLACK} fontSize={1}>
+          12:30
+        </Typography>
+      </Box>
     </Box>
   );
 };

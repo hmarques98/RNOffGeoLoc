@@ -9,11 +9,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { navigationRef } from 'navigation/RootNavigation';
 
 import { commonScreens, CommonStackParamList } from 'screens';
-import { ThemeProvider } from 'styled-components';
 import { myTheme } from '../../theme';
 import RNBootSplash from 'react-native-bootsplash';
 import CustomStatusBar from 'components/StatusBar';
-import { StatusBar, StatusBarIOS } from 'react-native';
 
 const screenOptions: StackNavigationOptions = {
   safeAreaInsets: {
@@ -34,36 +32,34 @@ const linking: LinkingOptions = {
 
 export default function Router() {
   return (
-    <ThemeProvider theme={myTheme}>
-      <NavigationContainer
-        linking={linking}
-        ref={navigationRef}
-        onReady={() => {
-          setTimeout(() => {
-            RNBootSplash.hide({ fade: true }); // fade
-          }, 3000);
-        }}>
-        <SafeAreaProvider>
-          <CustomStatusBar
-            barStyle="light-content"
-            backgroundColor={myTheme.colors.secondary}
-          />
-          <Stack.Navigator screenOptions={screenOptions}>
-            {Object.entries({
-              // Use the screens normally
-              ...commonScreens,
-            }).map(([name, props]) => {
-              return (
-                <Stack.Screen
-                  key={name}
-                  name={name as keyof ParamList}
-                  {...props}
-                />
-              );
-            })}
-          </Stack.Navigator>
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </ThemeProvider>
+    <NavigationContainer
+      linking={linking}
+      ref={navigationRef}
+      onReady={() => {
+        setTimeout(() => {
+          RNBootSplash.hide({ fade: true }); // fade
+        }, 3000);
+      }}>
+      <SafeAreaProvider>
+        <CustomStatusBar
+          barStyle="light-content"
+          backgroundColor={myTheme.colors.secondary}
+        />
+        <Stack.Navigator screenOptions={screenOptions}>
+          {Object.entries({
+            // Use the screens normally
+            ...commonScreens,
+          }).map(([name, props]) => {
+            return (
+              <Stack.Screen
+                key={name}
+                name={name as keyof ParamList}
+                {...props}
+              />
+            );
+          })}
+        </Stack.Navigator>
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 }

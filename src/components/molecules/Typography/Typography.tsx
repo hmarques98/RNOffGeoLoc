@@ -23,7 +23,7 @@ interface TypographyProps
     LayoutProps,
     SpaceProps,
     TextProps,
-    ColorProps {
+    ColorProps<typeof myTheme> {
   variant?: VariantTypes;
 }
 
@@ -49,7 +49,7 @@ const Typography = styled(Text)<TypographyProps>`
 `;
 
 Typography.defaultProps = {
-  color: myTheme.colors.primary,
+  color: 'primary',
   fontSize: 18,
   fontWeight: '600',
 };

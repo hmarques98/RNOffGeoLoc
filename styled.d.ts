@@ -4,12 +4,7 @@ import 'styled-components';
 // and extend them!
 declare module 'styled-components' {
   export interface DefaultTheme {
-    spacing: {
-      borderRadius: number;
-      border: number;
-      padding: number;
-      margin: number;
-    };
+    space: number[];
     colors: {
       primary: string;
       secondary: string;
@@ -18,10 +13,12 @@ declare module 'styled-components' {
       green: string;
       grayLight: string;
       success: string;
+      greenOpacity: string;
     };
     typography: {
       FONT_REGULAR: string;
       FONT_BOLD: string;
     };
+    borderWidths: number[];
   }
 }

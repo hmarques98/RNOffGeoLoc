@@ -18,11 +18,12 @@ import {
   position,
   PositionProps,
 } from 'styled-system';
+import { myTheme } from 'theme';
 type VariantTypes = 'primary' | 'secondary';
 interface BoxProps
   extends LayoutProps,
-    ColorProps,
-    SpaceProps,
+    ColorProps<typeof myTheme>,
+    SpaceProps<typeof myTheme>,
     BordersProps,
     FlexProps,
     PositionProps,
@@ -37,10 +38,10 @@ const variantStyle = (theme: DefaultTheme) => {
     prop: 'bgVariant',
     variants: {
       primary: {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: 'primary',
       },
       secondary: {
-        backgroundColor: theme.colors.secondary,
+        backgroundColor: 'secondary',
       },
     },
   });

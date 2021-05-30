@@ -2,9 +2,7 @@ import { Box } from 'components/molecules/Box';
 import { Typography } from 'components/molecules/Typography';
 import { Button } from 'components/molecules/Button';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { myTheme } from 'theme';
+
 import { CommonStackParamList } from 'src/screens';
 import { StackScreenProps } from '@react-navigation/stack';
 import useLocation from 'hooks/useLocation';
@@ -13,17 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { callUsers } from '@store/slices/location';
 import { offlineStateSelector } from '@store/slices';
 import useHeader from 'hooks/useHeader';
-import {
-  BLACK,
-  GRAY_LIGHT,
-  GREEN,
-  PRIMARY,
-  SUCCESS,
-  WHITE,
-} from 'styles/colors';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Divider } from 'components/molecules/Divider';
 import { Switch } from 'react-native-gesture-handler';
+import { PRIMARY } from 'styles/colors';
 type Props = StackScreenProps<CommonStackParamList, 'Home'>;
 const HomeScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
@@ -32,13 +24,9 @@ const HomeScreen = ({ navigation, route }: Props) => {
   const [isServiceActive, setIsServiceActive] = useState(false);
 
   return (
-    <Box flex={1} paddingTop={PADDING} bg={WHITE} px={3}>
-      <Box flexDirection="row">
-        <Box
-          borderWidth={3}
-          borderColor={PRIMARY}
-          borderRadius={100}
-          padding={2}>
+    <Box flex={1} paddingTop={PADDING} bg={'white'}>
+      <Box flexDirection="row" px={3}>
+        <Box borderWidth={3} borderColor={''} borderRadius={100} padding={2}>
           <MaterialCommunityIcons
             name="cards-diamond-outline"
             size={40}
@@ -50,22 +38,24 @@ const HomeScreen = ({ navigation, route }: Props) => {
         </Box>
         <Box ml={3}>
           <Typography>My GPS - Tracking</Typography>
-          <Typography color={isServiceActive ? GREEN : GRAY_LIGHT}>
+          <Typography color={isServiceActive ? 'green' : 'grayLight'}>
             {isServiceActive ? 'Online' : 'Offline'}
           </Typography>
         </Box>
       </Box>
 
-      <Divider variant="full" />
+      <Divider my={3} />
 
-      <Box flexDirection="row" justifyContent="space-between" mb={4}>
+      <Box flexDirection="row" justifyContent="space-between" mb={4} px={3}>
         <Box>
           <Typography>Status do serviço</Typography>
-          <Typography fontSize={1}>Serviço ativo</Typography>
+          <Typography fontSize={1} color="grayLight">
+            Serviço ativo
+          </Typography>
         </Box>
         <Switch value={isServiceActive} onValueChange={setIsServiceActive} />
       </Box>
-      <Box>
+      <Box px={3}>
         <Typography>Intervalo de comunicação</Typography>
         <Box flexDirection="row" justifyContent="space-between">
           {[10, 5, 3, 1].map((value) => {
@@ -102,11 +92,11 @@ const CardTimer = ({
       }}
       onPress={onPress}
       borderWidth={1}
-      borderColor={active ? SUCCESS : GRAY_LIGHT}
-      bg={active ? 'rgba(22,189,4, 0.1)' : WHITE}
-      borderRadius={4}
+      borderColor={active ? 'success' : 'grayLight'}
+      bg={active ? 'greenOpacity' : 'white'}
+      borderRadius={3}
       padding={3}>
-      <Typography color={active ? BLACK : GRAY_LIGHT}>{value}s</Typography>
+      <Typography color={active ? 'black' : 'grayLight'}>{value}s</Typography>
     </Button>
   );
 };
