@@ -1,3 +1,4 @@
 import { RootState } from '..';
 
-export const authState = (state: RootState) => state.auth;
+export const locationStateSelector = (state: RootState) => state.location;
+export const offlineStateSelector = (state: RootState) => state.offline;

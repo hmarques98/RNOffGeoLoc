@@ -1,20 +1,17 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { useDispatch } from 'react-redux';
 import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 import rootReducer from './rootReducer';
-import { log } from '../utils/console';
 import { ENV } from '@env';
 import { offline } from '@redux-offline/redux-offline';
 import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
-
-export type RootState = ReturnType<typeof store.getState>;
-log({ ENV });
+import { OfflineState } from '@redux-offline/redux-offline/lib/types';
 
 const middlewares: any[] = [];
 
 const dev = ENV === 'dev';
 
 if (dev) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const createDebugger = require('redux-flipper').default;
   middlewares.push(createDebugger());
 }
@@ -27,6 +24,9 @@ const store = configureStore({
 });
 
 export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch<AppDispatch>(); // Export a hook that can be reused to resolve types
-
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export type STATE = ReturnType<typeof store.getState>;
+export interface RootState extends STATE {
+  offline: OfflineState;
+}
 export default store;
