@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useLayoutEffect } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
+import React, { useLayoutEffect } from 'react';
 
 import { CommonStackParamList } from 'screens';
-import { NavigationProp, useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
 import { Typography } from 'components/molecules/Typography';
 import { Box } from 'components/molecules/Box';
 import { myTheme } from 'theme';
@@ -51,17 +50,25 @@ export default function useHeader(screen: ScreeName) {
           headerTitle: 'Status',
           headerTitleStyle: {
             color: GRAY_LIGHT,
+            flex: 1,
           },
-          // headerStatusBarHeight: 100,
           headerStyle: {
             backgroundColor: myTheme.colors.primary,
           },
           headerLeft: () => {
             return (
-              <Button px={3} onPress={navigation.goBack}>
+              <Button flex={1} px={3} onPress={navigation.goBack}>
                 <Typography color={WHITE}>Voltar</Typography>
               </Button>
             );
+          },
+          headerTitleContainerStyle: {
+            flex: 1,
+            height: '100%',
+            alignItems: 'center',
+          },
+          headerRight: () => {
+            return <Box flex={1} bg="red" />;
           },
         });
       default:
