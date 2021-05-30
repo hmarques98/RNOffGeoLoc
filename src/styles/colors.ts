@@ -3,7 +3,8 @@ export const PRIMARY = '#1D1C83';
 export const SECONDARY = '#030065';
 export const WHITE = '#F9F7FE';
 export const BLACK = '#1B1F23';
-export const GREEN = '#35403A';
+export const GREEN = '#16BD04';
+export const GREEN_OPACITY = '#16BD04';
 
 // ACTIONS
 export const SUCCESS = '#16BD04';
