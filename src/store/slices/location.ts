@@ -1,12 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { log } from '@utils/console';
+import Geolocation from 'react-native-geolocation-service';
+
+type InitialState = {
+  timer: number;
+  isServiceActive: boolean;
+  location: Partial<Geolocation.GeoPosition>;
+};
+
+const initialState: InitialState = {
+  isServiceActive: false,
+  timer: 1000,
+  location: {},
+};
 
 const locationSlice = createSlice({
   name: 'location',
-  initialState: {
-    timer: 1000,
-    isServiceActive: false,
-  },
+  initialState: initialState,
   reducers: {
     callUsers: {
       reducer: (state, action) => {
@@ -44,9 +54,13 @@ const locationSlice = createSlice({
     toggleService(state) {
       state.isServiceActive = !state.isServiceActive;
     },
+    handleLocation(state, action) {
+      state.location = action.payload;
+    },
   },
 });
 
-export const { callUsers, changeTimer, toggleService } = locationSlice.actions;
+export const { callUsers, changeTimer, toggleService, handleLocation } =
+  locationSlice.actions;
 const locationReducer = locationSlice.reducer;
 export default locationReducer;

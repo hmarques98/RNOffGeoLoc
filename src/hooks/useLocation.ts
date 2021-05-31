@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import {
   Alert,
@@ -7,29 +13,29 @@ import {
   Platform,
   ToastAndroid,
 } from 'react-native';
-import {
-  getApplicationName,
-  isBatteryCharging,
-} from 'react-native-device-info';
-import { log } from '@utils/console';
+import { getApplicationName } from 'react-native-device-info';
 import { locationStateSelector } from '@store/slices';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { handleLocation } from '@store/slices/location';
+import { useAppDispatch } from '@store/index';
+import { log } from '@utils/console';
+import { isMountedRef } from 'navigation/RootNavigation';
 
 export default function useLocation() {
-  const [location, setLocation] = useState<Geolocation.GeoPosition>(
-    {} as Geolocation.GeoPosition,
-  );
   const displayName = getApplicationName();
   const watchId = useRef<number | null>(null);
 
-  const { timer, isServiceActive } = useSelector(locationStateSelector);
+  const { timer, isServiceActive, location } = useSelector(
+    locationStateSelector,
+  );
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!isServiceActive) {
+    if (!isServiceActive || timer) {
       Geolocation.clearWatch(watchId.current!);
-      // Geolocation.stopObserving();
     }
-  }, [isServiceActive]);
+  }, [isServiceActive, timer]);
 
   const hasPermissionIOS = useCallback(async () => {
     const openSetting = () => {
@@ -109,27 +115,30 @@ export default function useLocation() {
       return;
     }
 
-    Geolocation.getCurrentPosition(
-      (position) => {
-        setLocation(position);
-      },
-      (error) => {
-        Alert.alert(`Code ${error.code}`, error.message);
-        setLocation({} as Geolocation.GeoPosition);
-        console.log(error);
-      },
-      {
-        accuracy: {
-          android: 'high',
-          ios: 'best',
+    if (isServiceActive) {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          dispatch(handleLocation(position));
+          log('location');
         },
-        enableHighAccuracy: true,
-        timeout: timer,
-        maximumAge: timer * 2,
-        forceRequestLocation: true,
-      },
-    );
-  }, [hasLocationPermission, timer]);
+        (error) => {
+          Alert.alert(`Code ${error.code}`, error.message);
+
+          console.log(error);
+        },
+        {
+          accuracy: {
+            android: 'high',
+            ios: 'best',
+          },
+          enableHighAccuracy: true,
+          timeout: timer,
+          maximumAge: timer * 2,
+          forceRequestLocation: true,
+        },
+      );
+    }
+  }, [dispatch, hasLocationPermission, isServiceActive, timer]);
 
   const getLocationUpdates = useCallback(async () => {
     const hasPermission = await hasLocationPermission();
@@ -141,10 +150,11 @@ export default function useLocation() {
     if (isServiceActive) {
       watchId.current = Geolocation.watchPosition(
         (position) => {
-          setLocation(position);
+          dispatch(handleLocation(position));
+          log('location update');
         },
         (error) => {
-          setLocation({} as Geolocation.GeoPosition);
+          dispatch(handleLocation({}));
           console.log(error);
         },
         {
@@ -155,13 +165,21 @@ export default function useLocation() {
           enableHighAccuracy: true,
           distanceFilter: 0,
           interval: timer,
-          fastestInterval: timer / 2,
+          fastestInterval: timer,
           forceRequestLocation: true,
           showsBackgroundLocationIndicator: true,
+          useSignificantChanges: true,
+          showLocationDialog: true,
         },
       );
     }
-  }, [hasLocationPermission, isServiceActive, timer]);
+  }, [dispatch, hasLocationPermission, isServiceActive, timer]);
+
+  useLayoutEffect(() => {
+    if (isMountedRef && isServiceActive) {
+      getLocationUpdates();
+    }
+  }, [getLocationUpdates, isServiceActive]);
 
   const removeLocationUpdates = useCallback(() => {
     Geolocation.clearWatch(watchId.current!);
@@ -180,6 +198,5 @@ export default function useLocation() {
 
   return {
     location,
-    getLocationUpdates,
   };
 }

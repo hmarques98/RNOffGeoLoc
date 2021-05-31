@@ -16,7 +16,7 @@ type Props = StackScreenProps<CommonStackParamList, 'Status'>;
 const StatusScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
   return (
-    <Box flex={1} mt={3} bg={'white'} px={3}>
+    <Box flex={1} py={3} bg={'white'} px={3}>
       <Divider my={3} />
       <Box flexDirection="row" justifyContent="space-between">
         <Box>
