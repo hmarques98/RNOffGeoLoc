@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import {
   Alert,

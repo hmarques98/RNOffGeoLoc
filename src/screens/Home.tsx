@@ -22,20 +22,16 @@ type Props = StackScreenProps<CommonStackParamList, 'Home'>;
 const milliseconds = 1000;
 const HomeScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
-
-  const { timer, isServiceActive } = useSelector(locationStateSelector);
-  const dispatch = useDispatch();
-  const { isConnected } = useNetInfo();
   useLocation();
 
+  const { timer, isServiceActive } = useSelector(locationStateSelector);
+  const { isConnected } = useNetInfo();
+  const dispatch = useDispatch();
+
   return (
-    <Box flex={1} paddingTop={3} bg={'white'}>
+    <Box flex={1} paddingTop={3} bg="white">
       <Box flexDirection="row" px={3}>
-        <Box
-          borderWidth={1}
-          borderColor={'primary'}
-          borderRadius={4}
-          padding={2}>
+        <Box borderWidth={1} borderColor="primary" borderRadius={4} padding={2}>
           <MaterialCommunityIcons
             name="cards-diamond-outline"
             size={40}
@@ -85,6 +81,7 @@ const HomeScreen = ({ navigation, route }: Props) => {
     </Box>
   );
 };
+
 const CardTimer = ({
   active,
   value,

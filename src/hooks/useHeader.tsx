@@ -27,7 +27,7 @@ export default function useHeader(screen: ScreeName) {
           headerLeft: () => {
             return (
               <Box px={3} flex={1}>
-                <Typography color={GRAY_LIGHT}>Olá, bem-vindo</Typography>
+                <Typography color={'grayLight'}>Olá, bem-vindo</Typography>
               </Box>
             );
           },
@@ -39,7 +39,7 @@ export default function useHeader(screen: ScreeName) {
                 onPress={() =>
                   navigation.push<keyof CommonStackParamList>('Status')
                 }>
-                <Typography color="#fff">Status</Typography>
+                <Typography color="white">Status</Typography>
               </Button>
             );
           },
@@ -58,7 +58,7 @@ export default function useHeader(screen: ScreeName) {
           headerLeft: () => {
             return (
               <Button flex={1} px={3} onPress={navigation.goBack}>
-                <Typography color={WHITE}>Voltar</Typography>
+                <Typography color={'white'}>Voltar</Typography>
               </Button>
             );
           },
@@ -68,7 +68,7 @@ export default function useHeader(screen: ScreeName) {
             alignItems: 'center',
           },
           headerRight: () => {
-            return <Box flex={1} bg="red" />;
+            return <Box flex={1} />;
           },
         });
       default:

@@ -1,5 +1,5 @@
 import HomeScreen from 'screens/Home';
-import StatusScreen from 'screens/StatusScreen';
+import StatusScreen from 'screens/Status';
 
 export type CommonStackParamList = {
   Home: undefined;
