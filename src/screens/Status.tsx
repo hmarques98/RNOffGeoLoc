@@ -10,6 +10,8 @@ import { log } from '@utils/console';
 import { getPointsById } from '@store/slices/location';
 import { useDispatch, useSelector } from 'react-redux';
 import { locationStateSelector } from '@store/slices';
+
+import { FlatList } from 'react-native-gesture-handler';
 type Props = StackScreenProps<CommonStackParamList, 'Status'>;
 
 const StatusScreen = ({ navigation, route }: Props) => {
@@ -39,19 +41,29 @@ const StatusScreen = ({ navigation, route }: Props) => {
 
   return (
     <Box flex={1} py={3} bg={'white'} px={3}>
-      {points.map((value) => {
-        return <CardPoint key={value.id} id={String(value.id)} />;
-      })}
-      <Divider my={3} />
+      <FlatList
+        data={points.slice().sort((a, b) => Number(b.time) - Number(a.time))}
+        renderItem={({ item }) => (
+          <CardPoint
+            time={item.time}
+            key={item.id}
+            id={String(item.id)}
+            completed={Boolean(data?.keys.includes(item.id))}
+          />
+        )}
+        ListFooterComponent={() => <Divider my={3} />}
+      />
     </Box>
   );
 };
 
 type CardPointProps = {
   id: string;
+  completed: boolean;
+  time: string;
 };
 
-const CardPoint = ({ id }: CardPointProps) => {
+const CardPoint = ({ id, completed, time }: CardPointProps) => {
   return (
     <>
       <Divider my={3} />
@@ -59,11 +71,11 @@ const CardPoint = ({ id }: CardPointProps) => {
         <Box>
           <Typography color={'black'}>Pacote ID: {id}</Typography>
           <Typography color={'black'} fontSize={1} mt={2}>
-            Pendente de sicronizar
+            {completed ? 'Pacote sincronizado' : 'Pendente de sincronização'}
           </Typography>
         </Box>
-        <Typography color={'black'} fontSize={1}>
-          {new Date(1622505622).toLocaleTimeString('pt-BR', {
+        <Typography color={'grayLight'} fontSize={1}>
+          {new Date(Number(time)).toLocaleTimeString('pt-BR', {
             timeZone: 'America/Fortaleza',
             hour: '2-digit',
             minute: '2-digit',

@@ -7,7 +7,7 @@ import { CommonStackParamList } from 'src/screens';
 import { StackScreenProps } from '@react-navigation/stack';
 import useLocation from 'hooks/useLocation';
 import { useDispatch, useSelector } from 'react-redux';
-import { callUsers, changeTimer, toggleService } from '@store/slices/location';
+import { changeTimer, toggleService } from '@store/slices/location';
 import { locationStateSelector, offlineStateSelector } from '@store/slices';
 import useHeader from 'hooks/useHeader';
 

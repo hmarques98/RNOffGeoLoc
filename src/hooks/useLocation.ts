@@ -10,10 +10,11 @@ import {
 import { getApplicationName } from 'react-native-device-info';
 import { locationStateSelector } from '@store/slices';
 import { useSelector } from 'react-redux';
-import { handleLocation } from '@store/slices/location';
+import { handleLocation, createPoint } from '@store/slices/location';
 import { useAppDispatch } from '@store/index';
 import { log } from '@utils/console';
 import { isMountedRef } from 'navigation/RootNavigation';
+import { nanoid } from '@reduxjs/toolkit';
 
 export default function useLocation() {
   const displayName = getApplicationName();
@@ -113,7 +114,6 @@ export default function useLocation() {
       Geolocation.getCurrentPosition(
         (position) => {
           dispatch(handleLocation(position));
-          log('location');
         },
         (error) => {
           Alert.alert(`Code ${error.code}`, error.message);
@@ -145,7 +145,15 @@ export default function useLocation() {
       watchId.current = Geolocation.watchPosition(
         (position) => {
           dispatch(handleLocation(position));
-          log('location update');
+          dispatch(
+            createPoint({
+              id: nanoid(12),
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              speed: position.coords.longitude,
+              time: String(position.timestamp),
+            }),
+          );
         },
         (error) => {
           dispatch(handleLocation({}));
