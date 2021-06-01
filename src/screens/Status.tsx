@@ -6,15 +6,19 @@ import { CommonStackParamList } from 'src/screens';
 import useHeader from 'hooks/useHeader';
 import { Divider } from 'components/molecules/Divider';
 import useReactQuery from 'hooks/useReactQuery';
-import axiosService from '@services/axiosService';
 import { log } from '@utils/console';
+import { getPointsById } from '@store/slices/location';
+import { useDispatch, useSelector } from 'react-redux';
+import { locationStateSelector } from '@store/slices';
 type Props = StackScreenProps<CommonStackParamList, 'Status'>;
 
 const StatusScreen = ({ navigation, route }: Props) => {
   useHeader(route.name);
-  const [points, setPoints] = useState<any>([]);
 
-  const { data, isLoading } = useReactQuery<{ keys: string[] }>({
+  const dispatch = useDispatch();
+  const { points } = useSelector(locationStateSelector);
+
+  const { data } = useReactQuery<{ keys: string[] }>({
     path: 'points',
     queryName: 'points',
   });
@@ -22,15 +26,12 @@ const StatusScreen = ({ navigation, route }: Props) => {
   const getPoints = useCallback(async () => {
     data?.keys.map(async (item) => {
       try {
-        const { data } = await axiosService.get(`points/${item}`);
-        setPoints((preview: any) => {
-          return [...preview, data.points];
-        });
+        dispatch(getPointsById(item));
       } catch (error) {
         log({ error });
       }
     });
-  }, [data?.keys]);
+  }, [data?.keys, dispatch]);
 
   useEffect(() => {
     getPoints();
@@ -38,8 +39,8 @@ const StatusScreen = ({ navigation, route }: Props) => {
 
   return (
     <Box flex={1} py={3} bg={'white'} px={3}>
-      {data?.keys.map((value) => {
-        return <CardPoint key={value} id={value} />;
+      {points.map((value) => {
+        return <CardPoint key={value.id} id={String(value.id)} />;
       })}
       <Divider my={3} />
     </Box>
