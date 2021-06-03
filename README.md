@@ -10,27 +10,29 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+
+<!-- [![MIT License][license-shield]][license-url] -->
+
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/hmarques98/RNOffGeoLoc/blob/main/docs/home_offline.png">
-    <img src="docs/Home.png" alt="Logo" height="300">
+    <img src="docs/home_offline.png" alt="Logo" height="700">
   </a>
 
-  <h3 align="center">Star Wars API - React Native</h3>
+  <h3 align="center">React Native App GeoLocation Offline - React Native</h3>
 
   <p align="center">
-    Consuming Api from Star Wars API and using with React Native
+    Consuming local api with key's packages from local api and using in React Native App
     <br />
     <br />
-    <a href="https://github.com/hmarques98/StarWarsRN">**View** Demo</a>
+    <a href="https://github.com/hmarques98/RNOffGeoLoc">**View** Demo</a>
     ·
-    <a href="https://github.com/hmarques98/StarWarsRN/issues">Report Bug</a>
+    <a href="https://github.com/hmarques98/RNOffGeoLoc/issues">Report Bug</a>
     ·
-    <a href="https://github.com/hmarques98/StarWarsRN/issues">Request Feature</a>
+    <a href="https://github.com/hmarques98/RNOffGeoLoc/issues">Request Feature</a>
    
   </p>
 </p>
@@ -64,22 +66,16 @@
 
 ## About The Project
 
- <a href="https://github.com/hmarques98/StarWarsRN/tree/main/docs">
-    <img src="docs/Home.png" 
-    height="300"
+ <a href="https://github.com/hmarques98/RNOffGeoLoc/tree/main/docs">
+    <img src="docs/home_online.png" 
+    height="500"
     alt="Logo">
-    <img src="docs/CharacterDetails.png" 
-    height="300"
-    alt="Logo">
-    <img src="docs/HomeEndListLoaded.png" 
-    height="300"
-    alt="Logo">
-    <img src="docs/HomeEndNoMoreData.png" 
-    height="300"
+    <img src="docs/pacotes_pendentes_offline.png" 
+    height="500"
     alt="Logo">
   </a>
 
-It was built a application using React Native as framework and consuming a api from Star Wars Api. Also used libraries how Storybook, React Query, Plops Js, Lottie among others.
+It was built a application using React Native as framework and consuming a api from React Native App GeoLocation Offline Api. Also used libraries how Storybook, React Query, Plops Js, Lottie among others.
 
 ### Built With
 
@@ -91,12 +87,10 @@ It was built a application using React Native as framework and consuming a api f
 - [Styled Components](https://styled-components.com/)
 - [PlopJS](https://plopjs.com/)
 - [React Query](https://react-query.tanstack.com/)
-- [Lottie React Native](https://github.com/lottie-react-native/lottie-react-native)
 - [React Native Flipper](https://fbflipper.com/docs/features/react-native/)
 - [Axios](https://github.com/axios/axios)
 - [React Native BootSplash](https://github.com/zoontek/react-native-bootsplash)
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
-- [React Native User Avatar](https://github.com/avishayil/react-native-user-avatar)
 
 <!-- GETTING STARTED -->
 
@@ -108,7 +102,7 @@ You need to have installed NodeJs and configured your OS to run on emulator to A
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/hmarques98/StarWarsRN
+   git clone https://github.com/hmarques98/RNOffGeoLoc
    ```
 2. Install NPM packages
    ```sh
@@ -155,28 +149,6 @@ const showStorybook = true;
 
 Now go to your application and you will see the library working and components Button, Typography and Box created.
 
-<!-- ROADMAP -->
-
-## What to improve
-
-What would you test in the app and how?
-
-I consider to test the functions where core of application exist.
-
-Ex: Showing correct datas in component card at HomeScreen
-
-Ex: Scrolling and loaded data is correct and working
-
-Ex: Navigation to screen Character Detail is showing all data corrects and also if data exist;
-
-what feature(s) would you consider adding as the next step?
-
-I would like implement test End to End using Detox Library. To see all functionalities working good
-
-## Roadmap
-
-See the [open issues](https://github.com/hmarques98/StarWarsRN/issues) for a list of proposed features (and known issues).
-
 <!-- CONTRIBUTING -->
 
 ## Contributing
@@ -201,22 +173,22 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Henrique Marques - [@hmarques98\_](https://twitter.com/@hmarques98) - marquesprogrammer@hotmail.com.com
 
-Project Link: [https://github.com/hmarques98/StarWarsRN](https://github.com/hmarques98/StarWarsRN)
+Project Link: [https://github.com/hmarques98/RNOffGeoLoc](https://github.com/hmarques98/RNOffGeoLoc)
 
 <!-- ACKNOWLEDGEMENTS -->
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-url]: https://github.com/hmarques98/StarWarsRN/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/hmarques98/StarWarsRN.svg?style=for-the-badge
-[forks-url]: https://github.com/hmarques98/StarWarsRN/network/members
-[stars-shield]: https://img.shields.io/github/stars/hmarques98/StarWarsRN.svg?style=for-the-badge
-[stars-url]: https://github.com/hmarques98/StarWarsRN/stargazers
-[issues-shield]: https://img.shields.io/github/issues/hmarques98/StarWarsRN.svg?style=for-the-badge
-[issues-url]: https://github.com/hmarques98/StarWarsRN/issues
-[license-shield]: https://img.shields.io/github/license/hmarques98/StarWarsRN.svg?style=for-the-badge
-[license-url]: https://github.com/hmarques98/StarWarsRN/blob/master/LICENSE.txt
+[contributors-url]: https://github.com/hmarques98/RNOffGeoLoc/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/hmarques98/RNOffGeoLoc.svg?style=for-the-badge
+[forks-url]: https://github.com/hmarques98/RNOffGeoLoc/network/members
+[stars-shield]: https://img.shields.io/github/stars/hmarques98/RNOffGeoLoc.svg?style=for-the-badge
+[stars-url]: https://github.com/hmarques98/RNOffGeoLoc/stargazers
+[issues-shield]: https://img.shields.io/github/issues/hmarques98/RNOffGeoLoc.svg?style=for-the-badge
+[issues-url]: https://github.com/hmarques98/RNOffGeoLoc/issues
+[license-shield]: https://img.shields.io/github/license/hmarques98/RNOffGeoLoc.svg?style=for-the-badge
+[license-url]: https://github.com/hmarques98/RNOffGeoLoc/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/hmarques98
 [product-screenshot]: images/screenshot.png
