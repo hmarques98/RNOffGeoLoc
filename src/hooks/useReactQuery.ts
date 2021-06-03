@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import axios from '@services/axiosService';
+import { log } from '@utils/console';
 interface useReactQueryProps {
   queryName: string;
   path: string;
@@ -14,7 +15,6 @@ const useReactQuery = <T>({
     queryName,
     async () => {
       const res = await axios.get(path);
-
       return res.data;
     },
     {
