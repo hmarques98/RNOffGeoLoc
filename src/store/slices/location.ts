@@ -16,6 +16,8 @@ type InitialState = {
   isServiceActive: boolean;
   location: Partial<Geolocation.GeoPosition>;
   points: IPoints[];
+  keys: string[];
+  loadedAll: boolean;
 };
 
 export const getPointsById = createAsyncThunk(
@@ -31,6 +33,8 @@ const initialState: InitialState = {
   timer: 1000,
   location: {},
   points: [],
+  keys: [],
+  loadedAll: false,
 };
 
 const locationSlice = createSlice({
@@ -39,12 +43,11 @@ const locationSlice = createSlice({
   reducers: {
     createPoint: {
       reducer: (state, action) => {
-        log(action, 'action');
-        log(action.meta, 'meta');
-        state.points = [];
-        state.points.push({
-          ...action.payload,
-        });
+        if (action.payload.id) {
+          state.points.push({
+            ...action.payload,
+          });
+        }
       },
       prepare(payload: IPoints) {
         return {
@@ -53,7 +56,7 @@ const locationSlice = createSlice({
             offline: {
               // the network action to execute:
               effect: {
-                url: `http://localhost:8082/points/${payload.id}`,
+                url: `http://10.0.2.2:8082/points/${payload.id}`,
                 method: 'POST',
                 json: { ...payload },
               },
@@ -65,12 +68,20 @@ const locationSlice = createSlice({
                 },
               },
               // action to dispatch if network action fails permanently:
-              rollback: { type: 'location/failCall' },
+              rollback: {
+                type: 'location/failCall',
+                meta: {
+                  payload,
+                },
+              },
             },
           },
           error: {},
         };
       },
+    },
+    saveKeys(state, action) {
+      state.keys = action.payload;
     },
     changeTimer(state, action) {
       state.timer = action.payload;
@@ -80,6 +91,13 @@ const locationSlice = createSlice({
     },
     handleLocation(state, action) {
       state.location = action.payload;
+    },
+
+    failCall(state, action) {
+      log(action, 'fail');
+    },
+    handleLoad(state, action) {
+      state.loadedAll = action.payload;
     },
   },
   extraReducers: ({ addCase }) => {
@@ -92,7 +110,13 @@ const locationSlice = createSlice({
   },
 });
 
-export const { createPoint, changeTimer, toggleService, handleLocation } =
-  locationSlice.actions;
+export const {
+  createPoint,
+  changeTimer,
+  toggleService,
+  handleLocation,
+  saveKeys,
+  handleLoad,
+} = locationSlice.actions;
 const locationReducer = locationSlice.reducer;
 export default locationReducer;

@@ -3,24 +3,26 @@ import { useDispatch } from 'react-redux';
 import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 import rootReducer from './rootReducer';
 import { ENV } from '@env';
-import { offline } from '@redux-offline/redux-offline';
+import { offline, createOffline } from '@redux-offline/redux-offline';
 import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
 import { OfflineState } from '@redux-offline/redux-offline/lib/types';
 
 const middlewares: any[] = [];
+const offlineEnhancer = createOffline(offlineConfig);
 
 const dev = ENV === 'dev';
 
 if (dev) {
   const createDebugger = require('redux-flipper').default;
+  middlewares.push(offlineEnhancer.middleware);
   middlewares.push(createDebugger());
 }
 const store = configureStore({
   reducer: rootReducer,
   devTools: dev,
+  enhancers: [offline(offlineConfig) as StoreEnhancer],
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middlewares),
-  enhancers: [offline(offlineConfig) as StoreEnhancer],
 });
 
 export type AppDispatch = typeof store.dispatch;
