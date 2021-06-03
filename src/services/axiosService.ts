@@ -5,10 +5,9 @@ import axios from 'axios';
 const instance = axios.create({
   baseURL: BASE_URL,
   timeout: 5000,
-  timeoutErrorMessage: 'Timeout error',
 });
 
-instance.defaults.headers.common.Authorization = 'AUTH TOKEN';
+// instance.defaults.headers.common.Authorization = '';
 
 instance.interceptors.request.use(
   (request) => {
@@ -27,7 +26,7 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    log(error, 'error axios');
+    log({ error });
     return Promise.reject(error.response);
   },
 );
