@@ -28,8 +28,6 @@
     Consuming local api with key's packages from local api and using in React Native App
     <br />
     <br />
-    <a href="https://github.com/hmarques98/RNOffGeoLoc">**View** Demo</a>
-    ·
     <a href="https://github.com/hmarques98/RNOffGeoLoc/issues">Report Bug</a>
     ·
     <a href="https://github.com/hmarques98/RNOffGeoLoc/issues">Request Feature</a>
